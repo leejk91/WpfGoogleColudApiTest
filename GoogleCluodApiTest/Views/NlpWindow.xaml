@@ -1,0 +1,41 @@
+﻿<Window x:Class="GoogleCluodApiTest.Views.NlpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GoogleCluodApiTest.Views"
+        mc:Ignorable="d"
+        Title="NlpWindow" Height="720" Width="520">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="분석할 텍스트"/>
+        <TextBox Grid.Row="1" Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" Height="120"/>
+        <StackPanel Grid.Row="2" Orientation="Vertical">
+            <Button Content="분석" Width="120" Command="{Binding AnalyzeCommand}"/>
+            <TextBlock Text="{Binding SentimentSummary}"/>
+            <GroupBox Header="개체(Entity)">
+                <DataGrid ItemsSource="{Binding Entities}" AutoGenerateColumns="False" Height="150">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                        <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="100"/>
+                        <DataGridTextColumn Header="Salience" Binding="{Binding Salience, StringFormat=0.000}" Width="100"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+
+            <GroupBox Header="카테고리">
+                <DataGrid ItemsSource="{Binding Categories}" AutoGenerateColumns="False" CanUserAddRows="False" Height="200">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Category" Binding="{Binding Name}" Width="*"/>
+                        <DataGridTextColumn Header="Confidence" Binding="{Binding Confidence, StringFormat=0.00}" Width="100"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</Window>
